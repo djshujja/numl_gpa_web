@@ -1,0 +1,28 @@
+SMAP
+cgpa_005fshow_jsp.java
+JSP
+*S JSP
+*F
++ 0 cgpa_show.jsp
+cgpa_show.jsp
++ 1 header.jsp
+header.jsp
++ 2 footer.jsp
+footer.jsp
+*L
+5,5:52
+5#1,31:56
+36:87,3
+37,2:90
+39,2:92,3
+41:98
+42:99,3
+43,5:102
+9#0,2:107
+11,10:110
+20:120
+21,2:121,3
+23,2:127
+1#2,4:128
+24#0,2:131
+*E
