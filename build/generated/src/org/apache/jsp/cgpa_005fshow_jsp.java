@@ -4,7 +4,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import java.sql.ResultSet;
+import java.util.*;
 import com.dao;
+import com.student;
 
 public final class cgpa_005fshow_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -52,7 +54,7 @@ public final class cgpa_005fshow_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write("\n");
+      out.write("<!DOCTYPE html>\n");
       out.write("\n");
       out.write("\n");
       out.write("\n");
@@ -65,23 +67,27 @@ public final class cgpa_005fshow_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("        <script src=\"https://code.jquery.com/jquery-3.5.1.min.js\" integrity=\"sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=\" crossorigin=\"anonymous\"></script>\n");
       out.write("        <title>Shujja Ahmed - 2093</title>\n");
       out.write("    </head>\n");
-      out.write("   <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n");
+      out.write("   <nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n");
       out.write("  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarTogglerDemo03\" aria-controls=\"navbarTogglerDemo03\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n");
       out.write("    <span class=\"navbar-toggler-icon\"></span>\n");
       out.write("  </button>\n");
-      out.write("  <a class=\"navbar-brand\" href=\"#\">Navbar</a>\n");
+      out.write("  <a class=\"navbar-brand\" href=\"index.jsp\">NUML Student Portal</a>\n");
       out.write("\n");
       out.write("  <div class=\"collapse navbar-collapse\" id=\"navbarTogglerDemo03\">\n");
       out.write("    <ul class=\"navbar-nav mr-auto mt-2 mt-lg-0\">\n");
-      out.write("      <li class=\"nav-item active\">\n");
-      out.write("        <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a>\n");
+      out.write("      <li class=\"nav-item\">\n");
+      out.write("        <a class=\"nav-link\" href=\"index.jsp\">Home <span class=\"sr-only\">(current)</span></a>\n");
       out.write("      </li>\n");
       out.write("      <li class=\"nav-item\">\n");
-      out.write("        <a class=\"nav-link\" href=\"#\">Link</a>\n");
+      out.write("        <a class=\"nav-link\" href=\"gpa_choice.jsp\">GPA Calculator</a>\n");
       out.write("      </li>\n");
       out.write("      <li class=\"nav-item\">\n");
-      out.write("        <a class=\"nav-link disabled\" href=\"#\">Disabled</a>\n");
+      out.write("        <a class=\"nav-link\" href=\"student_data.jsp\">CGPA</a>\n");
       out.write("      </li>\n");
+      out.write("       <li class=\"nav-item\">\n");
+      out.write("        <a class=\"nav-link\" href=\"student_data.jsp\">My Data</a>\n");
+      out.write("      </li>\n");
+      out.write("      \n");
       out.write("    </ul>\n");
       out.write("    <div class=\"form-inline my-2 my-lg-0\">\n");
       out.write("        ");
@@ -92,9 +98,9 @@ public final class cgpa_005fshow_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("        ");
  } else { 
       out.write("\n");
-      out.write("        <a>Welcome ");
+      out.write("        <b class=\"nav-item nav-link text-white\">Welcome back ");
       out.print( session.getAttribute("name").toString() );
-      out.write("</a>\n");
+      out.write("!</b>\n");
       out.write("        <a href=\"LogoutServlet\" ><button class=\"btn btn-danger my-2 my-sm-0\">Logout</button></a>\n");
       out.write("        ");
  } 
@@ -103,32 +109,69 @@ public final class cgpa_005fshow_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("  </div>\n");
       out.write("</nav>\n");
       out.write("    <body>\n");
-      out.write("        <div class=\"container\" >");
+      out.write("        <div class=\"container body\" >");
+      out.write('\n');
+      out.write('\n');
+
+    if (session.getAttribute("rollNo") == null) {
+        response.sendRedirect("login.jsp");
+    }
+
+      out.write('\n');
+
+    dao dao = new dao();
+    int rollNo = Integer.parseInt(session.getAttribute("rollNo").toString());
+    ResultSet cgpa = dao.sgpa(rollNo);
+    try {
+        while (cgpa.next()) {
+
       out.write("\n");
+      out.write("<h3 class=\"display-4 mt-5 text-center\"> Your CGPA  = ");
+      out.print( cgpa.getFloat(1));
+      out.write(" </h3>\n");
+ }
+                } catch (Exception ex) {
+                    System.out.println(ex.toString());
+                } 
+      out.write("\n");
+      out.write("<table class=\"table\">\n");
+      out.write("    <thead class=\"thead-dark\">\n");
+      out.write("        <tr>\n");
+      out.write("            <th scope=\"col\">Roll#</th>\n");
+      out.write("            <th scope=\"col\">Semester</th>\n");
+      out.write("            <th scope=\"col\">SCGPA</th>\n");
+      out.write("            <th scope=\"col\">Actions</th>\n");
+      out.write("        </tr>\n");
+      out.write("    </thead>\n");
+      out.write("    <tbody>\n");
       out.write("        ");
- 
-            if(session.getAttribute("rollNo") == null){
-                response.sendRedirect("login.jsp");
-            }
-            
-            dao dao = new dao();
-            int rollNo = Integer.parseInt(session.getAttribute("rollNo").toString());
-            ResultSet rs = dao.sgpa(rollNo);
-            try{
-            while(rs.next()){
-            
+
+            ResultSet rs = dao.sgpa_table(rollNo);
+            while (rs.next()) {
+        
       out.write("\n");
-      out.write("            <b> Your CGPA  = ");
-      out.print( rs.getFloat(3) );
-      out.write(" </b>\n");
-      out.write("            ");
- }} catch(Exception ex) { System.out.println(ex.toString()); } 
+      out.write("        <tr>\n");
+      out.write("            <th scope=\"row\"> ");
+      out.print( rs.getInt("rollNo"));
+      out.write(" </th>\n");
+      out.write("            <td>");
+      out.print( rs.getString("semester"));
+      out.write("</td>\n");
+      out.write("            <td>");
+      out.print( rs.getInt("SGPA"));
+      out.write("</td>\n");
+      out.write("            <td><a>Delete?</a></td>\n");
+      out.write("        </tr>\n");
+      out.write("        ");
+ } 
       out.write("\n");
-      out.write("            \n");
+      out.write("    </tbody>\n");
+      out.write("</table>\n");
+      out.write("\n");
+      out.write("\n");
       out.write("        </div>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
-      out.write('\n');
       out.write('\n');
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file='header.jsp' %>
-<div>
+<div class="text-center mt-5">
     <h4 class='display-4'>Please Choose One:</h4>
     <a href="calculate_formula.jsp"><button class='btn btn-dark'>Marks Based</button></a>
     <a href="grade_formula.jsp"><button class='btn btn-dark'>Grade Based</button></a>

@@ -36,6 +36,8 @@ public class GradeGPAServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+                        boolean exists = false;
+
             int sum = 0;
             float sgpa = 0;
             float gpa = 0;
@@ -51,6 +53,7 @@ public class GradeGPAServlet extends HttpServlet {
             try{
                 while(rs.next()){
                     if(semester == rs.getInt("semester")){
+                        exists = true;
 //                       out.print("<div class='bg-danger'>You already have SGPA for this semester!</div>");
                         response.sendRedirect("semester_exists.jsp");
                     }
@@ -63,7 +66,7 @@ public class GradeGPAServlet extends HttpServlet {
             sd.semester = semester;
             sd.marks = 0;
             sd.rollNo = rollNo;
-
+            if(exists != true){
             total_subjects = Integer.parseInt(request.getParameter("total_subjects"));
             for (int i = 1; i <= total_subjects; i++) {
 //                gpa = gpa + gpaLogic.gpa_logic(Float.parseFloat(request.getParameter("marks" + i)), Integer.parseInt(request.getParameter("ch" + i)));
@@ -76,11 +79,15 @@ public class GradeGPAServlet extends HttpServlet {
                 System.out.println(gpa);
             }
             float total_gpa = gpa / ch;
+            sd.sgpa = total_gpa;
+            dao.sgpa_insertion(sd);
             session.setAttribute("total_gpa", total_gpa);
-            float gpa_session = Float.parseFloat(session.getAttribute("total_gpa").toString());
-            out.print("<b>Your GPA = " + gpa_session + " </b>");
-            out.print("<b>Total Subjects = " + total_subjects + "</b>");
-            request.getRequestDispatcher("grade_formula.jsp").include(request, response);
+            response.sendRedirect("sgpa_show.jsp");
+//            float gpa_session = Float.parseFloat(session.getAttribute("total_gpa").toString());
+//            out.print("<b>Your GPA = " + gpa_session + " </b>");
+//            out.print("<b>Total Subjects = " + total_subjects + "</b>");
+//            request.getRequestDispatcher("grade_formula.jsp").include(request, response);
+            }
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }

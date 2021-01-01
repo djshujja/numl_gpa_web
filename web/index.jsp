@@ -8,11 +8,11 @@
 <!DOCTYPE html>
 <%@include file='header.jsp' %>
 
-<h4 class="display-3 text-center">Welcome To NUML Student Portal</h4>
+<h4 class="display-3 text-center mt-5">Welcome To NUML Student Portal</h4>
 <div style="font-size:25px" class='text-center'>
     <p>You may choose one of the following:</p>
     <a href="gpa_choice.jsp" ><button class='btn btn-dark'>GPA Calculator</button></a>
-    <a href="student_data.jsp"><button class='btn btn-dark'>CGPA Calculator</button></a>
+    <a href="cgpa_show.jsp"><button class='btn btn-dark'>CGPA Calculator</button></a>
     <a href="student_data.jsp"><button class='btn btn-dark'>My Data</button></a>
     <!--<a><button class='btn btn-dark'>GPA Calculator</button></a>-->
 

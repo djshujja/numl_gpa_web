@@ -29,7 +29,7 @@
         <a class="nav-link" href="gpa_choice.jsp">GPA Calculator</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="student_data.jsp">CGPA</a>
+        <a class="nav-link" href="cgpa_show.jsp">CGPA</a>
       </li>
        <li class="nav-item">
         <a class="nav-link" href="student_data.jsp">My Data</a>

@@ -7,20 +7,18 @@ package com;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DjShujja
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "DeleteSerlvet", urlPatterns = {"/DeleteSerlvet"})
+public class DeleteSerlvet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,37 +33,15 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
             dao dao = new dao();
-            student s = new student();
-            int rollNo = Integer.parseInt(request.getParameter("roll_no"));
-            String password = request.getParameter("password");
-            String db_password = null;
-            s.rollNo = rollNo;
-            ResultSet rs = dao.login(s);
-            try {
-
-                if (rs == null) {
-                    response.sendRedirect("register.html");
-                } else {
-                    while (rs.next()) {
-                        db_password = rs.getString("password");
-                        if (db_password.equals(password)) {
-                            HttpSession session = request.getSession();
-                            session.setAttribute("name", rs.getString("name"));
-                            session.setAttribute("rollNo", rs.getString("rollNo"));
-                            session.setAttribute("degree", rs.getString("degree"));
-                            response.sendRedirect("index.jsp");
+            int rollNo = Integer.parseInt(request.getParameter("rollNo"));
+                        int semester = Integer.parseInt(request.getParameter("semester"));
+                        try{
+                        dao.delete_sgpa(rollNo, semester);
+                        response.sendRedirect("cgpa_show.jsp");
+                        }catch(Exception ex){
+                            System.out.println(ex.toString());
                         }
-                        else {
-                            out.print("Wrong password!");
-                        }
-                    }
-                }
-
-            } catch (Exception ex) {
-                System.out.println(ex.toString());
-            }
 
         }
     }

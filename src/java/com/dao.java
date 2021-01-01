@@ -219,5 +219,53 @@ public class dao {
         return rs;
         
     }
+     public ResultSet sgpa_table(int rollNo)
+    {
+        ResultSet rs = null;
+        try
+        {
+            String qry="Select * from sgpa_tbl where rollNo=?";
+            PreparedStatement pst= con.prepareStatement(qry);
+            pst.setInt(1,rollNo);
+            System.out.println(pst);
+            rs = pst.executeQuery();
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+        }
+        return rs;
+        
+    }
+     public int delete_sgpa(int rollNo, int semester){
+         int res = 0;
+         
+         try
+        {
+            String qry="Delete from sgpa_tbl where rollNo=? && semester=? ";
+            PreparedStatement pst= con.prepareStatement(qry);
+            pst.setInt(1,rollNo);
+            pst.setInt(2,semester);
+            System.out.println(pst);
+            res= pst.executeUpdate();
+            qry = "Delete from students_data where rollNo=? && semester=?";
+             pst= con.prepareStatement(qry);
+            pst.setInt(1,rollNo);
+            pst.setInt(2,semester);
+             System.out.println(pst);
+            res= pst.executeUpdate();
+            
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+        }
+         return res;
+     }
     
 }
+    
+
+

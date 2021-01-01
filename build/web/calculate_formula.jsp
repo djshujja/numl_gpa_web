@@ -205,12 +205,12 @@
         <div id="subject2" class="subject2 form-group row">
             <input class="col-3 mr-auto" type="text" name="subject2" placeholder="Subject 2"  value="" />
             <input class="col-3 mr-auto" type="number" name="ch2" placeholder="Credit Hour 2"  />
-            <input class="col-3 mr-auto" type="text" name="marks2" placeholder="Marks 4"   value="" />
+            <input class="col-3 mr-auto" type="text" name="marks2" placeholder="Marks 2"   value="" />
         </div>
         <div id="subject3" class="subject3 form-group row">
             <input class="col-3 mr-auto" type="text" name="subject3" placeholder="Subject 3"  value="" />
             <input class="col-3 mr-auto" type="number" name="ch3" placeholder="Credit Hour 3"  />
-            <input class="col-3 mr-auto" type="text" name="marks3" placeholder="Marks 4"   value="" />
+            <input class="col-3 mr-auto" type="text" name="marks3" placeholder="Marks 3"   value="" />
         </div>
         <div id="subject4" class="subject4 form-group row">
             <input class="col-3 mr-auto" type="text" name="subject4" placeholder="Subject 4"  value="" />

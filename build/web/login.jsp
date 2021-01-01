@@ -77,9 +77,6 @@
                             <a href="register.html" class="txt2 hov1">
                                 Sign up
                             </a>
-                            <a href="LogoutServlet" class="txt2 hov1">
-                                Logout
-                            </a>
                         </div>
                     </form>
                 </div>
